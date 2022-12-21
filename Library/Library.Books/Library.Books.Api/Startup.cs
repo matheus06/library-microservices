@@ -42,6 +42,8 @@ namespace Library.Books.Api
 
             services.AddSwagger("Library.Books");
 
+            services.AddHealthChecks();
+
             services.AddControllers().AddNewtonsoftJson(x =>
             {
                 x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -58,7 +60,7 @@ namespace Library.Books.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -70,6 +72,7 @@ namespace Library.Books.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
 
             app.UseSwagger();

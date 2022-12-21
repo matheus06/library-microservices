@@ -42,6 +42,8 @@ namespace Library.Shop.Api
 
             services.AddSwagger("Library.Shop");
 
+            services.AddHealthChecks();
+
             services.AddControllers().AddNewtonsoftJson(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }).AddDaprForMvc();
@@ -69,6 +71,7 @@ namespace Library.Shop.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
 
             app.UseSwagger();

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-hub-deploy
+  namespace: library
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-hub
+  template:
+    metadata:
+      labels:
+        app: library-hub
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "library-hub"
+        dapr.io/app-port: "80"
+        dapr.io/enable-api-logging: "true"  
+    spec:
+      containers:
+        - name: library-hub
+          image: matheus06/library-hub:2.0.0
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-hub-clusterip-srv
+  namespace: library
+spec:
+  type: ClusterIP
+  selector:
+    app: library-hub
+  ports:
+  - name: library-hub
+    protocol: TCP
+    port: 80
+    targetPort: 80

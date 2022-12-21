@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 export class ApiBookService {
 
   constructor(private http: HttpClient, private datePipe : DatePipe) { }
-  private baseUrl = `${environment.apiUrl}/book/`;
+  private baseUrl = `${environment.apiUrl}/api/book/`;
 
   getBooks(token: string) : Observable<ApiBookListResponse> {
     return this.http.get<ApiBookListResponse>(this.baseUrl, {

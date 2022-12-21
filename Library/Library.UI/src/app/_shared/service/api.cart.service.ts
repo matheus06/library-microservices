@@ -12,7 +12,7 @@ import { ApiCartResponse } from '../model/api.cart.response';
 export class ApiCartService {
 
   constructor(private http: HttpClient) { }
-  private baseUrl = `${environment.apiUrl}/cart/`;
+  private baseUrl = `${environment.apiUrl}/api/cart/`;
   private cart = `product`
 
   getCartById(id: number, token: string): Observable<ApiCartResponse> {

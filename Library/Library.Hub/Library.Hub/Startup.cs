@@ -29,6 +29,8 @@ namespace Library.Hub
 
             services.AddSignalRInjection();
 
+            services.AddHealthChecks();
+
             services.AddMvc(options => options.EnableEndpointRouting = false).AddDaprForMvc();
         }
 
@@ -46,9 +48,10 @@ namespace Library.Hub
 
             app.UseDaprServices();
 
-            app.UseEndpoints(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<SignalRHub>("/notify");
+                endpoints.MapHub<SignalRHub>("/notify");
+                endpoints.MapHealthChecks("/health");
             });
 
             app.ApplicationServices.GetService<INotificationHub>();

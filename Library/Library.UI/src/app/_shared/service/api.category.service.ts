@@ -14,7 +14,7 @@ import { ApiCategoryListResponse, ApiCategoryResponse } from '../model/api.categ
 export class ApiCategoryService {
 
   constructor(private http: HttpClient, private datePipe : DatePipe) { }
-  private baseUrl = `${environment.apiUrl}/category/`;
+  private baseUrl = `${environment.apiUrl}/api/category/`;
 
   getCategories(token: string) : Observable<ICategory[]> {
     return this.http.get<ApiCategoryListResponse>(this.baseUrl, {

@@ -1,0 +1,81 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: library-ingress-service
+  namespace: library
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+    rules:
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /api/category
+          pathType: Prefix
+          backend:
+            service:
+              name: library-books-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /api/author
+          pathType: Prefix
+          backend:
+            service:
+              name: library-books-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /api/book
+          pathType: Prefix
+          backend:
+            service:
+              name: library-books-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /(api/cart).*
+          pathType: Prefix
+          backend:
+            service:
+              name: library-shop-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /(auth|api/auth|auth/login|api/users)
+          pathType: Prefix
+          backend:
+            service:
+              name: library-auth-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /(catchAll)
+          pathType: Prefix
+          backend:
+            service:
+              name: library-hub-clusterip-srv
+              port:
+                number: 80
+     - host: library.localdev.me
+       http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: library-ui-clusterip-srv
+              port:
+                number: 80
+        

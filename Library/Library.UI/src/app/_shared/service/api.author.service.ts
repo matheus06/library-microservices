@@ -13,9 +13,10 @@ import { DatePipe } from '@angular/common';
 export class ApiAuthorService {
 
   constructor(private http: HttpClient, private datePipe : DatePipe) { }
-  private baseUrl = `${environment.apiUrl}/author/`;
+  private baseUrl = `${environment.apiUrl}/api/author`;
 
   getAuthors(token: string) : Observable<ApiAuthorListResponse> {
+    console.log(this.baseUrl);
     return this.http.get<ApiAuthorListResponse>(this.baseUrl, {
       headers: {
         "Authorization": token
@@ -33,7 +34,8 @@ export class ApiAuthorService {
   }
 
   getAuthorById(id: string, token: string): Observable<ApiAuthorResponse> {
-    return this.http.get<ApiAuthorResponse>(this.baseUrl + id, {
+    console.log(this.baseUrl);
+    return this.http.get<ApiAuthorResponse>(this.baseUrl + "/" + id, {
       headers: {
         "Authorization": token
       }

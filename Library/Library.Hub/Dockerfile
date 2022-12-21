@@ -3,8 +3,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
-ARG PORT
-EXPOSE ${PORT}/tcp
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
@@ -17,11 +15,10 @@ ARG CONFIG_PROFILE
 RUN dotnet restore
 
 FROM build AS publish
-RUN dotnet publish "Library.Hub.csproj" -c ${CONFIG_PROFILE} -o /app/publish
+RUN dotnet publish "Library.Hub.csproj" -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS http://*:${PORT}
-ENTRYPOINT ["dotnet", "Library.Hub.dll", "http://*:${PORT}"]
+ENTRYPOINT ["dotnet", "Library.Hub.dll"]

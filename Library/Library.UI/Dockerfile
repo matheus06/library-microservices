@@ -12,7 +12,7 @@ COPY . ./
 
 ARG ENVIRONMENT
 
-RUN yarn build --${ENVIRONMENT} --output-path=dist
+RUN yarn build --output-path=dist
 #RUN npm run build --configuration ${ENVIRONMENT} --output-path=dist
 
 ###BUILD NGINX AND COPYING FILES###

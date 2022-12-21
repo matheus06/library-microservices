@@ -14,7 +14,7 @@ import { IEntity } from '../model/entity.model';
 export class ApiUserService {
 
   constructor(private http: HttpClient) { }
-  private baseUrl = `${environment.apiUrl}/users`;
+  private baseUrl = `${environment.apiUrl}/api/users`;
 
   getUsers(token: string) : Observable<ApiUserListResponse> {
     return this.http.get<ApiUserListResponse>(`${this.baseUrl}/withroles`, {

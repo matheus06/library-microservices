@@ -17,7 +17,7 @@ import { selectLoggedUser } from 'src/app/store/selectors/login.selector';
 export class ApiLoginService {
 
   constructor(private http: HttpClient, private router: Router, private store: Store<IAppState<IUser>>) { }
-  private baseUrl = `${environment.apiUrl}/auth/`;
+  private baseUrl = `${environment.apiUrl}/api/auth/`;
 
   private islogged = this.store.pipe(select(selectLoggedUser));
 

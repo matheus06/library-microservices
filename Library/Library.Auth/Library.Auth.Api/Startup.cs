@@ -42,6 +42,8 @@ namespace Library.Auth.Api
 
             services.AddSwagger("Library.Auth");
             
+            services.AddHealthChecks();
+
             services.AddControllers().AddNewtonsoftJson(x =>
             {
                 x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -70,6 +72,7 @@ namespace Library.Auth.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
 
             app.UseSwagger();

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-ui-deploy
+  namespace: library
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-ui
+  template:
+    metadata:
+      labels:
+        app: library-ui
+    spec:
+      containers:
+        - name: library-ui
+          image: matheus06/library-ui:2.0.2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-ui-clusterip-srv
+  namespace: library
+spec:
+  type: ClusterIP
+  selector:
+    app: library-ui
+  ports:
+  - name: library-ui
+    protocol: TCP
+    port: 80
+    targetPort: 4200

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-books-deploy
+  namespace: library
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-books
+  template:
+    metadata:
+      labels:
+        app: library-books
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "library-books"
+        dapr.io/app-port: "80"
+        dapr.io/enable-api-logging: "true"  
+    spec:
+      containers:
+        - name: library-books
+          image: matheus06/library-books:2.0.2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-books-clusterip-srv
+  namespace: library
+spec:
+  type: ClusterIP
+  selector:
+    app: library-books
+  ports:
+  - name: library-books
+    protocol: TCP
+    port: 80
+    targetPort: 80
