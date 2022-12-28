@@ -18,7 +18,7 @@ library-auth:
     hosts:
       - host: library.localdev.me
         paths:
-          - path: /(auth|api/auth|auth/login|api/users)
+          - path: /(auth/|api/auth/|auth/login|api/users)
             pathType: Prefix
 
   podAnnotations:

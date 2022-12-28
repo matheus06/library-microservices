@@ -51,7 +51,7 @@ spec:
      - host: library.localdev.me
        http:
         paths:
-        - path: /(auth|api/auth|auth/login|api/users)
+        - path: /(auth/|api/auth/|auth/login|api/users)
           pathType: Prefix
           backend:
             service:
