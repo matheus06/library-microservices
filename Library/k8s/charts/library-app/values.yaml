@@ -114,7 +114,7 @@ library-hub:
     hosts:
       - host: library.localdev.me
         paths:
-         - path: /(catchAll)
+         - path: /(notify)
            pathType: Prefix
 
   podAnnotations:
