@@ -86,6 +86,12 @@ helm install rabbitmq my-repo/rabbitmq
 
 ## Deploy App
 
+Install
 ```
 helm upgrade --install library-app . --namespace=library  --debug --dry-run
+helm upgrade --install library-app . --namespace=library  --set library-auth.image.tag="0.1.0"  --debug --dry-run
+helm upgrade --install library-app . --namespace=library  --set library-hub.env.ASPNETCORE_ENVIRONMENT="Prod"  --set library-auth.image.tag="0.1.0"  --debug --dry-run
+helm upgrade --install library-app . --namespace=library  --set global.env.ASPNETCORE_ENVIRONMENT="Prod"   --set library-auth.image.tag="0.1.0"  --debug --dry-run
 ```
+
+helm uninstall library-app .
